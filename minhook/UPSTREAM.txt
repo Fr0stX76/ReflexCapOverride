@@ -1,0 +1,10 @@
+MinHook - The Minimalistic API Hooking Library for x64/x86
+Upstream: https://github.com/TsudaKageyu/minhook
+Revision: 8af6b4acae5a9388fd742b56fa79ece89d96f823
+Revision date: 2026-09-08T02:58:59+03:00
+
+Included: include/, src/, LICENSE.txt and AUTHORS.txt, unchanged.
+Not included: the upstream CMake files, DLL resources and README.
+ReflexCapOverride builds only buffer.c, hook.c, trampoline.c and hde/hde64.c.
+
+The complete upstream license is in LICENSE.txt.

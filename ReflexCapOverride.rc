@@ -1,0 +1,35 @@
+#pragma code_page(65001)
+#include <windows.h>
+
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+
+MINHOOK_LICENSE RCDATA "minhook/LICENSE.txt"
+
+1 VERSIONINFO
+FILEVERSION 1,0,0,0
+PRODUCTVERSION 1,0,0,0
+FILEFLAGSMASK VS_FFI_FILEFLAGSMASK
+FILEFLAGS 0x0L
+FILEOS VOS_NT_WINDOWS32
+FILETYPE VFT_DLL
+FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "Fr0stX76"
+            VALUE "FileDescription", "ReflexCapOverride"
+            VALUE "FileVersion", "1.0.0.0"
+            VALUE "InternalName", "ReflexCapOverride"
+            VALUE "LegalCopyright", "Copyright © 2026 Fr0stX76"
+            VALUE "OriginalFilename", "version.dll"
+            VALUE "ProductName", "ReflexCapOverride"
+            VALUE "ProductVersion", "1.0.0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0409, 1200
+    END
+END
