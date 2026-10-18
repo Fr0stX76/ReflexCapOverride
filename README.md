@@ -11,7 +11,7 @@ Not affiliated with NVIDIA.
 
 With G-SYNC, VSync and DLSS Frame Generation on, games force Reflex on, following NVIDIA's guidelines. Reflex then caps the frame rate a few FPS below the refresh rate. With some engines and displays, a cap below the refresh rate causes stutter, even with G-SYNC. ReflexCapOverride removes that cap, or replaces it with your own value, for those cases.
 
-It's meant for single-player games, often played with a controller. Turning Reflex Low Latency off adds some input latency, which is hard to notice there. For competitive or mouse-driven games, keep Reflex as is.
+It's meant for single-player games, often played with a controller. Turning Reflex Low Latency off adds input latency. For competitive or mouse-driven games, keep Reflex as is.
 
 ## Features
 
