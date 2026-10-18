@@ -1,6 +1,6 @@
 # ReflexCapOverride
 
-A `version.dll` mod that turns NVIDIA Reflex Low Latency off and puts you in control of the Reflex frame limit in Direct3D 11 and 12 games.
+A `version.dll` mod that turns NVIDIA Reflex off in Direct3D 11 and 12 games, even when the game forces it on, and removes the frame rate cap that comes with it.
 
 Not affiliated with NVIDIA.
 
@@ -9,14 +9,15 @@ Not affiliated with NVIDIA.
 
 ## Why
 
-With G-SYNC, VSync and DLSS Frame Generation on, games force Reflex on, following NVIDIA's guidelines. Reflex then caps the frame rate a few FPS below the refresh rate. With some engines and displays, a cap below the refresh rate causes stutter, even with G-SYNC. ReflexCapOverride removes that cap, or replaces it with your own value, for those cases.
+With G-SYNC, VSync and DLSS Frame Generation on, games force Reflex on, following NVIDIA's guidelines, and Reflex caps the frame rate a few FPS below the refresh rate. With some engines and displays, that cap causes stutter, even with G-SYNC. ReflexCapOverride turns Reflex off, so the cap goes away with it.
 
-It's meant for single-player games, often played with a controller. Turning Reflex Low Latency off adds input latency. For competitive or mouse-driven games, keep Reflex as is.
+It's meant for single-player games, often played with a controller. With Reflex off, input latency goes up. For competitive or mouse-driven games, keep Reflex on.
 
 ## Features
 
-- Forces Reflex Low Latency off, whatever the game asks for.
-- Replaces the game's Reflex frame limit with your own value, or removes it so your usual frame limiter takes over.
+- Turns Reflex off, Low Latency and Boost included, whatever the game asks for.
+- Removes the Reflex frame cap, so your usual frame limiter takes over.
+- Optional frame cap applied by the NVIDIA driver, with Reflex still off.
 - Works as `version.dll` or as an ASI plugin, alongside ReShade and other mods.
 
 ## Requirements
@@ -37,14 +38,14 @@ TargetFPS=0
 
 | `TargetFPS` | Result |
 | --- | --- |
-| `0` | No Reflex frame limit. Limiters that don't use Reflex (game engine, RTSS, VSync) keep working. |
-| `1` to `1000` | Reflex frame limit at this rate. Decimals take a dot or a comma, for example `119.877`. |
+| `0` | No cap. Use another frame limiter, such as RTSS in any mode except Reflex, or VSync. |
+| `1` to `1000` | The NVIDIA driver caps the frame rate at this value, with Reflex still off. Decimals take a dot or a comma, for example `119.877`. |
 
-- Reflex Low Latency is always off.
-- Limiters built on Reflex, such as some in-game caps or RTSS in Reflex mode, are replaced by this value.
+- Reflex stays off whatever the value.
+- Since Reflex is off at the driver level, frame limiters that rely on it, such as RTSS in Reflex mode or in-game caps built on Reflex, can't work. Use `TargetFPS` or another limiter instead.
 - The file is read at launch. Restart the game after changing it.
 
-To check that it works, set `TargetFPS=60`: the game should stay at 60 FPS. The game's menu may still show Reflex as on. That's expected.
+To check that it works, set `TargetFPS=60`: the game should stay at 60 FPS. The game's menu may still show Reflex as on. It isn't: the driver receives Reflex off whatever the game asks for.
 
 ### ReShade and other mods
 
@@ -78,7 +79,7 @@ The DLL forwards every `version.dll` function to the real one in System32. Once 
 
 | Function | ID | Change |
 | --- | --- | --- |
-| `NvAPI_D3D_SetSleepMode` | `0xAC1CA9E0` | Whatever the game asks for, the driver receives Low Latency, Boost, marker optimizations and minimum queue time off, and the frame interval from the INI. |
+| `NvAPI_D3D_SetSleepMode` | `0xAC1CA9E0` | Whatever the game asks for, the driver receives Reflex off (Low Latency, Boost, marker optimizations and minimum queue time) and the frame interval from the INI, 0 meaning no cap. |
 | `NvAPI_D3D_Sleep` | `0x852CD1D2` | Sends the same settings once per device, in case the game set up Reflex before the hooks were in place. |
 
 Everything else passes through untouched. The DLL writes no files, doesn't touch the registry and doesn't use the network.
